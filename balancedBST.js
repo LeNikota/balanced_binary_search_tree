@@ -1,5 +1,5 @@
 function mergeSort(arr) {
-  if (arr.length === 1) {
+  if (arr.length <= 1) {
     return arr;
   }
   const midIndex = Math.floor(arr.length / 2);
@@ -84,24 +84,35 @@ class Tree {
     }
   }
 
-  insert(value, node = this.root) {
-    if(node == null) {
-      node = new Node(value);
-      return node;
+  insert(value) {
+    if(this.root == null){
+      this.root = new Node(value);
+      return;
     }
-    if(value === node.value) return node;
+    
+    let previousNode = null;
+    let currentNode = this.root;
+    while(currentNode != null){
+      if(value === currentNode.value) return;
 
-    if(value < node.value){
-      node.left = this.insert(value, node.left)
-    } else {
-      node.right = this.insert(value, node.right)
+      if(value < currentNode.value){
+        previousNode = currentNode;
+        currentNode = currentNode.left
+      } else {
+        previousNode = currentNode;
+        currentNode = currentNode.right
+      }
     }
+    if(value < previousNode.value) previousNode.left = new Node(value)
+    else  previousNode.right = new Node(value);
+  }
 
-    return node;
+  delete(value){
+
   }
 }
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const tree = new Tree([]);
 tree.print();
 tree.insert(3)
 tree.insert(4)
@@ -110,6 +121,8 @@ tree.insert(5)
 tree.insert(5)
 tree.insert(5)
 tree.insert(5)
+tree.insert(1)
+tree.insert(2)
 tree.insert(6)
-tree.insert(23)
+console.log(tree.insert(23))
 tree.print();
