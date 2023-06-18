@@ -12,7 +12,7 @@ function mergeSort(arr) {
     const mergedArr = [];
     let leftIndex = 0;
     let rightIndex = 0;
-    
+
     while (leftIndex < left.length && rightIndex < right.length) {
       if (left[leftIndex] < right[rightIndex]) {
         mergedArr.push(left[leftIndex]);
@@ -31,13 +31,13 @@ function mergeSort(arr) {
       mergedArr.push(right[rightIndex]);
       rightIndex++;
     }
-    
+
     return mergedArr;
   }
 }
 
 function removeDuplicates(arr) {
-  return arr.filter((value, index, arr) => arr.indexOf(value) === index)
+  return arr.filter((value, index, arr) => arr.indexOf(value) === index);
 }
 
 class Node {
@@ -53,15 +53,22 @@ class Tree {
     this.root = this.#prepareForBuildingTree(arr);
   }
 
-  #prepareForBuildingTree(arr){
+  #prepareForBuildingTree(arr) {
     const sortedArr = mergeSort(arr);
     const uniqSortedArr = removeDuplicates(sortedArr);
-    // build the tree
-    return this.#buildTree()
+    return this.#buildTree(uniqSortedArr);
   }
 
-  #buildTree(){
+  #buildTree(arr) {
+    if (arr.length === 0) {
+      return null;
+    }
 
+    const mid = Math.floor(arr.length / 2);
+    const node = new Node(arr[mid]);
+    node.left = this.#buildTree(arr.slice(0, mid));
+    node.right = this.#buildTree(arr.slice(mid + 1));
+    return node;
   }
 
   print(node = this.root, prefix = "", isLeft = true) {
@@ -69,14 +76,14 @@ class Tree {
       return;
     }
     if (node.right !== null) {
-      print(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+      this.print(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
     }
-    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
     if (node.left !== null) {
-      print(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+      this.print(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
-  };
-
+  }
 }
 
-// const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+tree.print()
