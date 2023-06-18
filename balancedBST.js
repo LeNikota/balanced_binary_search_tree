@@ -83,7 +83,33 @@ class Tree {
       this.print(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
   }
+
+  insert(value, node = this.root) {
+    if(node == null) {
+      node = new Node(value);
+      return node;
+    }
+    if(value === node.value) return node;
+
+    if(value < node.value){
+      node.left = this.insert(value, node.left)
+    } else {
+      node.right = this.insert(value, node.right)
+    }
+
+    return node;
+  }
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-tree.print()
+tree.print();
+tree.insert(3)
+tree.insert(4)
+tree.insert(5)
+tree.insert(5)
+tree.insert(5)
+tree.insert(5)
+tree.insert(5)
+tree.insert(6)
+tree.insert(23)
+tree.print();
