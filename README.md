@@ -1,1 +1,1 @@
-# balanced_binary_search_tree
+# Balanced binary search tree
