@@ -137,14 +137,13 @@ class Tree {
   }
 
   find(value, node = this.root) {
-    if (node.value === null) return;
+    if (node === null || value === node.value) return node;
 
     if (value < node.value) {
       return this.find(value, node.left);
-    } else if (value > node.value) {
+    } else {
       return this.find(value, node.right);
     }
-    return node;
   }
 }
 
@@ -158,5 +157,5 @@ class Tree {
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.print();
 tree.delete(8);
-console.log(tree.find(1));
+console.log(tree.find(0));
 tree.print();
