@@ -189,7 +189,7 @@ class Tree {
   }
 
   preorder(callback, node = this.root, arr = []) {
-    (typeof callback === "function") ? callback(node) : arr.push(node.value);
+    typeof callback === "function" ? callback(node) : arr.push(node.value);
 
     if (node.left != null) this.preorder(callback, node.left, arr);
     if (node.right != null) this.preorder(callback, node.right, arr);
@@ -199,7 +199,7 @@ class Tree {
 
   inorder(callback, node = this.root, arr = []) {
     if (node.left != null) this.inorder(callback, node.left, arr);
-    (typeof callback === "function") ? callback(node) : arr.push(node.value);
+    typeof callback === "function" ? callback(node) : arr.push(node.value);
     if (node.right != null) this.inorder(callback, node.right, arr);
 
     if (arr.length != 0) return arr;
@@ -209,10 +209,46 @@ class Tree {
     if (node.left != null) this.postorder(callback, node.left, arr);
     if (node.right != null) this.postorder(callback, node.right, arr);
 
-    (typeof callback === "function") ? callback(node) : arr.push(node.value);
+    typeof callback === "function" ? callback(node) : arr.push(node.value);
 
     if (arr.length != 0) return arr;
   }
+
+  height(node = this.root) {
+    if (node == null) return -1;
+    const leftHight = this.height(node.left);
+    const rightHight = this.height(node.right);
+    return Math.max(leftHight, rightHight) + 1;
+  }
+
+  depth(node = this.root, value, depth = 0) {
+    if (node == null) return;
+
+    if (value == null) {
+      value = node.value;
+      node = this.root;
+    }
+
+    if (value < node.value) {
+      return this.depth(node.left, value, depth + 1);
+    } else if (value > node.value) {
+      return this.depth(node.right, value, depth + 1);
+    }
+
+    return depth;
+  }
+
+  // depth(nodeVal, node = this.root, edgeCount = 0) {
+  //   if (node === null) return;
+  //   if (node.value === nodeVal) return edgeCount;
+
+  //   if (node.value < nodeVal) {
+  //     return this.depth(nodeVal, node.rightChild, edgeCount + 1);
+  //   } else {
+  //     return this.depth(nodeVal, node.leftChild, edgeCount + 1);
+  //   }
+  // }
+  // is this script even working
 }
 
 // Delete successor.  Since successor
@@ -223,9 +259,7 @@ class Tree {
 // succ.right to succParent.right
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-tree.print()
-tree.preorder((node) => console.log(node.value));
-console.log("--------------------");
-tree.inorder((node) => console.log(node.value));
-console.log("--------------------");
-tree.postorder((node) => console.log(node.value));
+tree.print();
+
+console.log(tree.height(tree.find(1)));
+console.log(tree.depth(tree.find(1)));
