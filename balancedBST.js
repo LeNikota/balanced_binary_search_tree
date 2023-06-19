@@ -113,38 +113,50 @@ class Tree {
     if (value < node.value) {
       node.left = this.delete(value, node.left);
       return node;
-    } else if(value > node.value) {
+    } else if (value > node.value) {
       node.right = this.delete(value, node.right);
       return node;
     }
 
-    if(node.left == null) return node.right;
-    else if(node.right == null) return node.left;
-    
+    if (node.left == null) return node.right;
+    else if (node.right == null) return node.left;
+
     let parent = node;
     let successor = node.right;
-    while(successor.left != null) {
+    while (successor.left != null) {
       parent = successor;
-      successor = successor.left
+      successor = successor.left;
     }
-    if(parent !== node) {
+    if (parent !== node) {
       parent.left = successor.right;
     } else {
-      parent.right = successor.right
+      parent.right = successor.right;
     }
     node.value = successor.value;
-    return node
+    return node;
+  }
+
+  find(value, node = this.root) {
+    if (node.value === null) return;
+
+    if (value < node.value) {
+      return this.find(value, node.left);
+    } else if (value > node.value) {
+      return this.find(value, node.right);
+    }
+    return node;
   }
 }
 
- // Delete successor.  Since successor
-  // is always left child of its parent
-  // we can safely make successor's right
-  // right child as left of its parent.
-  // If there is no succ, then assign
-  // succ.right to succParent.right
+// Delete successor.  Since successor
+// is always left child of its parent
+// we can safely make successor's right
+// right child as left of its parent.
+// If there is no succ, then assign
+// succ.right to succParent.right
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.print();
 tree.delete(8);
+console.log(tree.find(1));
 tree.print();
