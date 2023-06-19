@@ -85,44 +85,66 @@ class Tree {
   }
 
   insert(value) {
-    if(this.root == null){
+    if (this.root == null) {
       this.root = new Node(value);
       return;
     }
-    
+
     let previousNode = null;
     let currentNode = this.root;
-    while(currentNode != null){
-      if(value === currentNode.value) return;
+    while (currentNode != null) {
+      if (value === currentNode.value) return;
 
-      if(value < currentNode.value){
+      if (value < currentNode.value) {
         previousNode = currentNode;
-        currentNode = currentNode.left
+        currentNode = currentNode.left;
       } else {
         previousNode = currentNode;
-        currentNode = currentNode.right
+        currentNode = currentNode.right;
       }
     }
-    if(value < previousNode.value) previousNode.left = new Node(value)
-    else  previousNode.right = new Node(value);
+    if (value < previousNode.value) previousNode.left = new Node(value);
+    else previousNode.right = new Node(value);
   }
 
-  delete(value){
+  delete(value, node = this.root) {
+    if (node === null) return node;
 
+    if (value < node.value) {
+      node.left = this.delete(value, node.left);
+      return node;
+    } else if(value > node.value) {
+      node.right = this.delete(value, node.right);
+      return node;
+    }
+
+    if(node.left == null) return node.right;
+    else if(node.right == null) return node.left;
+    
+    let parent = node;
+    let successor = node.right;
+    while(successor.left != null) {
+      parent = successor;
+      successor = successor.left
+    }
+    if(parent !== node) {
+      parent.left = successor.right;
+    } else {
+      parent.right = successor.right
+    }
+    node.value = successor.value;
+    return node
   }
 }
 
-const tree = new Tree([]);
+ // Delete successor.  Since successor
+  // is always left child of its parent
+  // we can safely make successor's right
+  // right child as left of its parent.
+  // If there is no succ, then assign
+  // succ.right to succParent.right
+
+const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.print();
-tree.insert(3)
-tree.insert(4)
-tree.insert(5)
-tree.insert(5)
-tree.insert(5)
-tree.insert(5)
-tree.insert(5)
-tree.insert(1)
-tree.insert(2)
-tree.insert(6)
-console.log(tree.insert(23))
+tree.delete(8);
 tree.print();
