@@ -40,6 +40,30 @@ function removeDuplicates(arr) {
   return arr.filter((value, index, arr) => arr.indexOf(value) === index);
 }
 
+class Queue {
+  constructor() {
+    this.values = {};
+    this.head = 0;
+    this.tail = 0;
+  }
+
+  enqueue(value) {
+    this.values[this.head++] = value;
+  }
+
+  dequeue() {
+    if (this.isEmpty) return null;
+
+    const item = this.values[this.tail];
+    delete this.values[this.tail++];
+    return item;
+  }
+
+  get isEmpty() {
+    return this.head === this.tail;
+  }
+}
+
 class Node {
   constructor(value) {
     this.value = value;
@@ -145,6 +169,24 @@ class Tree {
       return this.find(value, node.right);
     }
   }
+
+  levelOrder(callback) {
+    const arr = [];
+    const queue = new Queue();
+    queue.enqueue(this.root);
+
+    while (!queue.isEmpty) {
+      const node = queue.dequeue();
+
+      if (typeof callback === "function") callback(node);
+      else arr.push(node);
+
+      if (node.left != null) queue.enqueue(node.left);
+      if (node.right != null) queue.enqueue(node.right);
+    }
+
+    if (arr.length != 0) return arr;
+  }
 }
 
 // Delete successor.  Since successor
@@ -157,5 +199,6 @@ class Tree {
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.print();
 tree.delete(8);
-console.log(tree.find(0));
+console.log(tree.find(1));
 tree.print();
+tree.levelOrder((node) => console.log(node.value));
