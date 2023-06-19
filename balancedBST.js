@@ -218,6 +218,7 @@ class Tree {
     if (node == null) return -1;
     const leftHight = this.height(node.left);
     const rightHight = this.height(node.right);
+
     return Math.max(leftHight, rightHight) + 1;
   }
 
@@ -238,17 +239,13 @@ class Tree {
     return depth;
   }
 
-  // depth(nodeVal, node = this.root, edgeCount = 0) {
-  //   if (node === null) return;
-  //   if (node.value === nodeVal) return edgeCount;
+  isBalance() {
+    const leftHight = this.height(this.root.left);
+    const rightHight = this.height(this.root.right);
 
-  //   if (node.value < nodeVal) {
-  //     return this.depth(nodeVal, node.rightChild, edgeCount + 1);
-  //   } else {
-  //     return this.depth(nodeVal, node.leftChild, edgeCount + 1);
-  //   }
-  // }
-  // is this script even working
+    console.log(leftHight,rightHight);
+    return Math.abs(leftHight - rightHight) < 2;
+  }
 }
 
 // Delete successor.  Since successor
@@ -258,8 +255,8 @@ class Tree {
 // If there is no succ, then assign
 // succ.right to succParent.right
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const tree = new Tree([1, 7,3, 3,55,33, 3, 2,13,34,556,]);
+tree.print();
 tree.print();
 
-console.log(tree.height(tree.find(1)));
-console.log(tree.depth(tree.find(1)));
+console.log(tree.isBalance());
