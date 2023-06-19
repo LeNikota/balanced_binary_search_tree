@@ -187,6 +187,32 @@ class Tree {
 
     if (arr.length != 0) return arr;
   }
+
+  preorder(callback, node = this.root, arr = []) {
+    (typeof callback === "function") ? callback(node) : arr.push(node.value);
+
+    if (node.left != null) this.preorder(callback, node.left, arr);
+    if (node.right != null) this.preorder(callback, node.right, arr);
+
+    if (arr.length != 0) return arr;
+  }
+
+  inorder(callback, node = this.root, arr = []) {
+    if (node.left != null) this.inorder(callback, node.left, arr);
+    (typeof callback === "function") ? callback(node) : arr.push(node.value);
+    if (node.right != null) this.inorder(callback, node.right, arr);
+
+    if (arr.length != 0) return arr;
+  }
+
+  postorder(callback, node = this.root, arr = []) {
+    if (node.left != null) this.postorder(callback, node.left, arr);
+    if (node.right != null) this.postorder(callback, node.right, arr);
+
+    (typeof callback === "function") ? callback(node) : arr.push(node.value);
+
+    if (arr.length != 0) return arr;
+  }
 }
 
 // Delete successor.  Since successor
@@ -197,8 +223,9 @@ class Tree {
 // succ.right to succParent.right
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-tree.print();
-tree.delete(8);
-console.log(tree.find(1));
-tree.print();
-tree.levelOrder((node) => console.log(node.value));
+tree.print()
+tree.preorder((node) => console.log(node.value));
+console.log("--------------------");
+tree.inorder((node) => console.log(node.value));
+console.log("--------------------");
+tree.postorder((node) => console.log(node.value));
