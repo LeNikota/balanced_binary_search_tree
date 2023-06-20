@@ -264,19 +264,46 @@ class Tree {
 // If there is no succ, then assign
 // succ.right to succParent.right
 
-const tree = new Tree([1, 7, 3, 3, 55, 33, 3, 2, 13, 34, 556]);
-tree.delete(34);
-tree.delete(7);
-tree.delete(55);
-tree.insert(37);
-tree.insert(4);
-tree.insert(76);
-tree.insert(7);
-tree.insert(2);
-tree.insert(6);
-tree.print();
-console.log(tree.isBalanced());
+// Helper function to generate an array of random numbers
+function generateRandomArray(length, max) {
+  const arr = [];
+  for (let i = 0; i < length; i++) {
+    arr.push(Math.floor(Math.random() * max));
+  }
+  return arr;
+}
+
+// Create a binary search tree from an array of random numbers
+const arr = generateRandomArray(10, 100);
+const tree = new Tree(arr);
+
+// Check if the tree is balanced
+console.log("Is Balanced:", tree.isBalanced()); // Output: true
+
+// Print all elements in level, pre, post, and in order
+console.log("Level Order:", tree.levelOrder().map(node => node.value));
+console.log("Preorder:", tree.preorder());
+console.log("Inorder:", tree.inorder());
+console.log("Postorder:", tree.postorder());
+
+// Unbalance the tree by adding numbers > 100
+tree.insert(120);
+tree.insert(110);
+tree.insert(130);
+
+// Check if the tree is unbalanced
+console.log("Is Balanced:", tree.isBalanced()); // Output: false
+
+// Balance the tree
 tree.rebalance();
-tree.print();
-console.log(tree.isBalanced());
+
+// Check if the tree is balanced
+console.log("Is Balanced:", tree.isBalanced()); // Output: true
+
+// Print all elements in level, pre, post, and in order
+console.log("Level Order:", tree.levelOrder().map(node => node.value));
+console.log("Preorder:", tree.preorder());
+console.log("Inorder:", tree.inorder());
+console.log("Postorder:", tree.postorder());
+
 
