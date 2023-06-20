@@ -239,12 +239,21 @@ class Tree {
     return depth;
   }
 
-  isBalance() {
-    const leftHight = this.height(this.root.left);
-    const rightHight = this.height(this.root.right);
+  isBalanced(node = this.root) {
+    if (node == null) return true;
 
-    console.log(leftHight,rightHight);
-    return Math.abs(leftHight - rightHight) < 2;
+    const leftHight = this.height(node.left);
+    const rightHight = this.height(node.right);
+
+    return (
+      Math.abs(leftHight - rightHight) <= 1 &&
+      this.isBalanced(node.left)  &&
+      this.isBalanced(node.right)
+    );
+  }
+
+  rebalance(){
+    this.root = this.#buildTree(this.inorder())
   }
 }
 
@@ -255,8 +264,19 @@ class Tree {
 // If there is no succ, then assign
 // succ.right to succParent.right
 
-const tree = new Tree([1, 7,3, 3,55,33, 3, 2,13,34,556,]);
+const tree = new Tree([1, 7, 3, 3, 55, 33, 3, 2, 13, 34, 556]);
+tree.delete(34);
+tree.delete(7);
+tree.delete(55);
+tree.insert(37);
+tree.insert(4);
+tree.insert(76);
+tree.insert(7);
+tree.insert(2);
+tree.insert(6);
 tree.print();
+console.log(tree.isBalanced());
+tree.rebalance();
 tree.print();
+console.log(tree.isBalanced());
 
-console.log(tree.isBalance());
