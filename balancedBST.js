@@ -181,7 +181,7 @@ class Tree {
       const node = queue.dequeue();
 
       if (typeof callback === "function") callback(node);
-      else arr.push(node);
+      else arr.push(node.value);
 
       if (node.left != null) queue.enqueue(node.left);
       if (node.right != null) queue.enqueue(node.right);
@@ -259,13 +259,74 @@ class Tree {
   }
 }
 
-// Delete successor.  Since successor
-// is always left child of its parent
-// we can safely make successor's right
-// right child as left of its parent.
-// If there is no succ, then assign
-// succ.right to succParent.right
 
 
-const tree = new Tree()
-console.log(tree);
+
+
+
+
+
+
+// Create a new instance of the Tree class
+const tree = new Tree([5, 2, 7, 1, 3, 6, 8]);
+
+// Print the tree structure
+console.log("Tree Structure:");
+tree.print();
+console.log();
+
+// Insert a new node
+tree.insert(4);
+tree.print();
+console.log();
+
+// Delete a node
+tree.delete(1);
+tree.print();
+console.log();
+
+// Find a node
+console.log("Found Node:", tree.find(3));
+console.log();
+
+// Perform a level-order traversal
+console.log("Level-order Traversal:");
+console.log(tree.levelOrder());
+console.log();
+
+// Perform a pre-order traversal
+console.log("Pre-order Traversal:");
+console.log(tree.preorder());
+console.log();
+
+// Perform an in-order traversal
+console.log("In-order Traversal:");
+console.log(tree.inorder());
+console.log();
+
+// Perform a post-order traversal
+console.log("Post-order Traversal:");
+console.log(tree.postorder());
+console.log();
+
+// Get the height of the tree
+console.log("Tree Height:", tree.height());
+console.log();
+
+// Get the depth of a node
+console.log("Node with the value 7 depth:", tree.depth(tree.find(7)));
+console.log();
+
+// Check if the tree is balanced
+console.log("Before replanning Tree Structure:");
+tree.print();
+console.log("Is Balanced:", tree.isBalanced());
+console.log();
+
+// Rebalance the tree
+tree.rebalance();
+
+// Print the rebalanced tree structure
+console.log("Rebalanced Tree Structure:");
+tree.print();
+console.log("Is Balanced:", tree.isBalanced());
