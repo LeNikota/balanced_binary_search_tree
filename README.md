@@ -14,7 +14,7 @@ The `Tree` class represents a binary search tree data structure. It provides met
 
 ## Methods
 
-### `print(node, prefix, isLeft)`
+### `print()`
 
 - Prints the tree structure in a hierarchical format.
 
@@ -24,13 +24,13 @@ The `Tree` class represents a binary search tree data structure. It provides met
 - Parameters:
   - `value`: The value to be inserted.
 
-### `delete(value, node)`
+### `delete(value)`
 
 - Deletes a node with the given value from the tree.
 - Parameters:
   - `value`: The value of the node to be deleted.
 
-### `find(value, node)`
+### `find(value)`
 
 - Finds a node with the given value in the tree.
 - Parameters:
@@ -44,21 +44,21 @@ The `Tree` class represents a binary search tree data structure. It provides met
   - `callback` (optional): The callback function to be applied to each visited node. If not specified, an array of visited nodes will be returned.
 - Returns: An array of visited nodes, if no callback is provided.
 
-### `preorder(callback, node)`
+### `preorder(callback)`
 
 - Performs a pre-order traversal of the tree and applies the specified callback function to each visited node.
 - Parameters:
   - `callback` (optional): The callback function to be applied to each visited node. If not specified, an array of visited nodes will be returned.
 - Returns: An array of visited nodes, if no callback is provided.
 
-### `inorder(callback, node)`
+### `inorder(callback)`
 
 - Performs an in-order traversal of the tree and applies the specified callback function to each visited node.
 - Parameters:
   - `callback` (optional): The callback function to be applied to each visited node. If not specified, an array of visited nodes will be returned.
 - Returns: An array of visited nodes, if no callback is provided.
 
-### `postorder(callback, node)`
+### `postorder(callback)`
 
 - Performs a post-order traversal of the tree and applies the specified callback function to each visited node.
 - Parameters:
@@ -72,7 +72,7 @@ The `Tree` class represents a binary search tree data structure. It provides met
   - `node` (optional): The root node of the subtree. If not specified, the method uses the root of the current instance.
 - Returns: The height of the tree or subtree.
 
-### `depth(node, value, depth)`
+### `depth(node)`
 
 - Calculates the depth of a node with the given value in the tree or a specific subtree.
 - Parameters:
