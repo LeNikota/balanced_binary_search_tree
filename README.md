@@ -103,7 +103,3 @@ The `Tree` class represents a binary search tree data structure. It provides met
 
 - Rebalances the tree by rebuilding it using the current nodes in an in-order traversal.
 - Note: This method modifies the tree structure.
-
----
-
-This documentation provides an overview of the `Tree` class and its available methods. For detailed usage and examples, please refer to the code comments and specific use cases.

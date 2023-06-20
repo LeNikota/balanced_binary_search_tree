@@ -78,6 +78,8 @@ class Tree {
   }
 
   #prepareForBuildingTree(arr) {
+    if(arr == null) return new Node();
+
     const sortedArr = mergeSort(arr);
     const uniqSortedArr = removeDuplicates(sortedArr);
     return this.#buildTree(uniqSortedArr);
@@ -263,3 +265,7 @@ class Tree {
 // right child as left of its parent.
 // If there is no succ, then assign
 // succ.right to succParent.right
+
+
+const tree = new Tree()
+console.log(tree);
